@@ -16,32 +16,33 @@ video: 148
 var wg sync.WaitGroup
 
 const value int = 5
+
 func main() {
 
 	fmt.Printf("Starting CPU %d \n", runtime.NumCPU())
-	fmt.Printf("Starting Go routines %d \n",runtime.NumGoroutine())
+	fmt.Printf("Starting Go routines %d \n", runtime.NumGoroutine())
 	MainLoop()
 
 	wg.Add(2)
 	go LoopOne()
 	go LoopTwo()
 	fmt.Printf("MID CPU %d \n", runtime.NumCPU())
-	fmt.Printf("MID Go routines %d \n",runtime.NumGoroutine())
+	fmt.Printf("MID Go routines %d \n", runtime.NumGoroutine())
 	wg.Wait()
 	fmt.Printf("End CPU %d \n", runtime.NumCPU())
-	fmt.Printf("End Go routines %d \n",runtime.NumGoroutine())
+	fmt.Printf("End Go routines %d \n", runtime.NumGoroutine())
 }
 
 func MainLoop() {
 	for i := 0; i < value; i++ {
-		fmt.Printf("Loop Main \tn# %d \n",i)
+		fmt.Printf("Loop Main \tn# %d \n", i)
 	}
 	fmt.Println()
 }
 
 func LoopOne() {
 	for i := 0; i < value; i++ {
-		fmt.Printf("Loop One \tn# %d \n",i)
+		fmt.Printf("Loop One \tn# %d \n", i)
 	}
 	fmt.Println()
 	wg.Done()
@@ -49,7 +50,7 @@ func LoopOne() {
 
 func LoopTwo() {
 	for i := 0; i < value; i++ {
-		fmt.Printf("Loop Two  \tn# %d \n",i)
+		fmt.Printf("Loop Two  \tn# %d \n", i)
 	}
 	fmt.Println()
 	wg.Done()
