@@ -25,6 +25,7 @@ func funcWithAtomic() {
 	for i := 0; i < gs; i++ {
 		go func() {
 			atomic.AddInt64(&counter, 1)
+			fmt.Println("atomic: ", atomic.LoadInt64(&counter))
 			wg.Done()
 		}()
 		fmt.Println("Goroutines: ", runtime.NumGoroutine())
