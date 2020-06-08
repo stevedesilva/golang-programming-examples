@@ -6,12 +6,12 @@ func main() {
 
 	odd := make(chan int)
 	eve := make(chan int)
-	quit := make(chan int)
+	quit := make(chan int) 
 
 	go send(eve, odd,quit)
 
 	receive(eve,odd,quit)
-	
+
 	fmt.Printf("exit from main\n")
 }
 
@@ -23,10 +23,14 @@ func receive(eve,odd,quit <-chan int) {
 		
 		case v:= <- odd : 
 			fmt.Printf("from odd channel:\t %v\n",v)
-		case v:= <- quit : 
+		case v,ok:= <- quit : 
+			if !ok {
+				fmt.Printf("from quit channel, closing:\t %v\n",v)
+				return
+			} 
 			fmt.Printf("from quit channel:\t %v\n",v)
-			return
-		}
+		
+		} 
 	}
 }
 
@@ -40,5 +44,5 @@ func send(eve,odd,quit chan<- int) {
 	}
 	close(eve)
 	close(odd)
-	quit <- 0
+	close(quit)
 }
