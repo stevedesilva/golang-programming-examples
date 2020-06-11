@@ -68,13 +68,10 @@ func fanOutInWithLimit(c1 <-chan int, c2 chan<- int) {
 		go func() {
 			// listen on c1 which blocks until a message is received
 			for v := range c1 {
-				// anon func to run the work and put unto a channel
-				func(v int) {
-					c2 <- timeconsumingWork(v)
-
-				}(v)
-
+				// run the work and put unto a channel
+				c2 <- timeconsumingWork(v)
 			}
+			// exit when c1 closed
 			wg.Done()
 		}()
 	}
