@@ -40,3 +40,4 @@ func receive(c, quit <-chan int) {
 		}
 	}
 }
+
