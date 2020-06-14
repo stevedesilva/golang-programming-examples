@@ -4,6 +4,7 @@ import (
 	"fmt"
 )
 
+// pull the values off the channel using a for range loop
 func main() {
 	c := gen()
 	receive(c)
@@ -13,7 +14,7 @@ func main() {
 
 func gen() <-chan int {
 	c := make(chan int)
-
+	// func literal
 	go func() {
 		defer close(c)
 		for i := 0; i < 100; i++ {
